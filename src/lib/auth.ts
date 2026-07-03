@@ -3,6 +3,7 @@ import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { cache } from "react"
 
+import { authConfig } from "@/lib/auth.config"
 import { prisma } from "@/lib/prisma"
 import { loginSchema } from "@/lib/validations/auth.schema"
 
@@ -12,12 +13,7 @@ const {
   signIn,
   signOut,
 } = NextAuth({
-  session: {
-    strategy: "jwt",
-  },
-  pages: {
-    signIn: "/login",
-  },
+  ...authConfig,
   providers: [
     Credentials({
       credentials: {
@@ -51,20 +47,6 @@ const {
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user?.id) {
-        token.id = user.id
-      }
-      return token
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string
-      }
-      return session
-    },
-  },
 })
 
 const auth = cache(uncachedAuth)
