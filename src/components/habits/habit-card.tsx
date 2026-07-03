@@ -72,16 +72,20 @@ export function HabitCard({ summary }: { summary: HabitWeekSummary }) {
               onClick={day.isToday ? handleToggleToday : undefined}
               title={day.date}
               className={cn(
-                "flex size-8 flex-1 items-center justify-center rounded-md border text-xs font-medium transition-colors",
+                "flex size-8 flex-1 items-center justify-center rounded-md border text-xs font-medium transition-all duration-150",
                 day.done
                   ? "border-transparent bg-primary text-primary-foreground"
                   : "border-border text-muted-foreground",
                 day.isToday && !day.done && "border-ring",
-                day.isToday && "cursor-pointer hover:opacity-80",
+                day.isToday && "cursor-pointer hover:scale-105 hover:opacity-80 active:scale-95",
                 !day.isToday && "cursor-default"
               )}
             >
-              {day.done ? <Check className="size-4" /> : DAY_LABELS[index]}
+              {day.done ? (
+                <Check className="size-4 animate-in zoom-in-50 duration-150" />
+              ) : (
+                DAY_LABELS[index]
+              )}
             </button>
           ))}
         </div>

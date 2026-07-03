@@ -1,7 +1,10 @@
+import { FolderKanban } from "lucide-react"
 import { redirect } from "next/navigation"
 
 import { CreateProjectButton } from "@/components/projects/create-project-button"
 import { ProjectCard } from "@/components/projects/project-card"
+import { AnimateIn } from "@/components/ui/animate-in"
+import { EmptyState } from "@/components/ui/empty-state"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
@@ -31,13 +34,18 @@ export default async function ProjectsPage() {
       </div>
 
       {projects.length === 0 ? (
-        <p className="text-sm text-muted-foreground">
-          Aucun projet pour l&apos;instant. Créez-en un pour commencer.
-        </p>
+        <EmptyState
+          icon={FolderKanban}
+          title="Aucun projet pour l'instant"
+          description="Créez votre premier projet pour organiser vos tâches."
+          action={<CreateProjectButton />}
+        />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+          {projects.map((project, index) => (
+            <AnimateIn key={project.id} index={index}>
+              <ProjectCard project={project} />
+            </AnimateIn>
           ))}
         </div>
       )}

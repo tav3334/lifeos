@@ -1,8 +1,11 @@
+import { ListTodo } from "lucide-react"
 import { redirect } from "next/navigation"
 
 import { CreateTaskButton } from "@/components/tasks/create-task-button"
 import { TaskRow } from "@/components/tasks/task-row"
+import { AnimateIn } from "@/components/ui/animate-in"
 import { Card, CardContent } from "@/components/ui/card"
+import { EmptyState } from "@/components/ui/empty-state"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
@@ -40,13 +43,19 @@ export default async function TasksPage() {
       <Card>
         <CardContent>
           {tasks.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
-              Aucune tâche pour l&apos;instant. Créez-en une pour commencer.
-            </p>
+            <EmptyState
+              icon={ListTodo}
+              title="Aucune tâche pour l'instant"
+              description="Créez votre première tâche pour commencer à avancer."
+              action={<CreateTaskButton projects={projects} />}
+              className="border-none py-8"
+            />
           ) : (
             <div>
-              {tasks.map((task) => (
-                <TaskRow key={task.id} task={task} projects={projects} />
+              {tasks.map((task, index) => (
+                <AnimateIn key={task.id} index={index}>
+                  <TaskRow task={task} projects={projects} />
+                </AnimateIn>
               ))}
             </div>
           )}

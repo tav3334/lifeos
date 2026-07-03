@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { EmptyState } from "@/components/ui/empty-state"
 import { cn } from "@/lib/utils"
 import { getWeeklyHabitSummary } from "@/services/stats.service"
 
@@ -29,9 +30,12 @@ export async function HabitsWidget({ userId }: { userId: string }) {
       </CardHeader>
       <CardContent>
         {summary.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            Aucune habitude suivie pour l&apos;instant.
-          </p>
+          <EmptyState
+            icon={Repeat}
+            title="Aucune habitude suivie"
+            description="Créez votre première habitude pour la suivre ici."
+            className="border-none py-6"
+          />
         ) : (
           <ul className="flex flex-col gap-4">
             {summary.map(({ habit, days, completedCount }) => (

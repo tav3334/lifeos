@@ -1,3 +1,4 @@
+import { ListTodo } from "lucide-react"
 import { notFound, redirect } from "next/navigation"
 
 import { EditProjectButton } from "@/components/projects/edit-project-button"
@@ -6,6 +7,7 @@ import { CreateTaskButton } from "@/components/tasks/create-task-button"
 import { TaskRow } from "@/components/tasks/task-row"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { EmptyState } from "@/components/ui/empty-state"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
@@ -80,7 +82,15 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[pro
         </CardHeader>
         <CardContent>
           {project.tasks.length === 0 ? (
-            <p className="text-sm text-muted-foreground">Aucune tâche dans ce projet.</p>
+            <EmptyState
+              icon={ListTodo}
+              title="Aucune tâche dans ce projet"
+              description="Ajoutez une tâche pour commencer à avancer."
+              action={
+                <CreateTaskButton projects={projects} defaultProjectId={project.id} />
+              }
+              className="border-none py-8"
+            />
           ) : (
             <div>
               {tasksWithProject.map((task) => (

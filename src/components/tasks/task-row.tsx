@@ -58,7 +58,7 @@ export function TaskRow({
   }
 
   return (
-    <div className="flex items-start gap-3 border-b py-3 last:border-b-0">
+    <div className="-mx-2 flex items-start gap-3 rounded-lg border-b px-2 py-3 transition-colors last:border-b-0 hover:bg-muted/50">
       <Checkbox
         checked={isDone}
         onCheckedChange={handleToggle}
@@ -67,7 +67,12 @@ export function TaskRow({
       />
 
       <div className="min-w-0 flex-1">
-        <p className={cn("truncate text-sm font-medium", isDone && "text-muted-foreground line-through")}>
+        <p
+          className={cn(
+            "truncate text-sm font-medium transition-colors duration-200",
+            isDone && "text-muted-foreground line-through"
+          )}
+        >
           {task.title}
         </p>
         <div className="mt-1 flex flex-wrap items-center gap-1.5">

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Flame } from "lucide-react"
+import { Flame, PartyPopper } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import {
@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { EmptyState } from "@/components/ui/empty-state"
 import { getPrioritizedTasks } from "@/services/priority-engine"
 import type { PrioritizedTask, PriorityReason } from "@/types"
 
@@ -70,9 +71,12 @@ export async function PriorityWidget({ userId }: { userId: string }) {
       </CardHeader>
       <CardContent>
         {prioritizedTasks.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            Aucune tâche en attente. Profitez-en !
-          </p>
+          <EmptyState
+            icon={PartyPopper}
+            title="Tout est à jour"
+            description="Aucune tâche en attente. Profitez-en !"
+            className="border-none py-6"
+          />
         ) : (
           <ul>
             {prioritizedTasks.map((item) => (
