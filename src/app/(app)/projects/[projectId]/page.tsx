@@ -43,9 +43,9 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[pro
   return (
     <div className="flex flex-col gap-4">
       <Card>
-        <CardHeader className="flex-row items-start justify-between gap-2 space-y-0">
-          <div>
-            <CardTitle className="text-xl">{project.name}</CardTitle>
+        <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-2 sm:space-y-0">
+          <div className="min-w-0">
+            <CardTitle className="text-xl break-words">{project.name}</CardTitle>
             <Badge className={`mt-2 ${PROJECT_STATUS_CLASSES[project.status]}`}>
               {PROJECT_STATUS_LABELS[project.status]}
             </Badge>
@@ -76,7 +76,7 @@ export default async function ProjectDetailPage(props: PageProps<"/projects/[pro
       </Card>
 
       <Card>
-        <CardHeader className="flex-row items-center justify-between space-y-0">
+        <CardHeader className="flex-row flex-wrap items-center justify-between gap-2 space-y-0">
           <CardTitle className="text-base">Tâches</CardTitle>
           <CreateTaskButton projects={projects} defaultProjectId={project.id} size="sm" />
         </CardHeader>

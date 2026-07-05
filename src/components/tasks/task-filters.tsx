@@ -40,12 +40,12 @@ export function TaskFilters({ projects }: { projects: Project[] }) {
   }
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
       <Select
         value={searchParams.get("status") ?? "all"}
         onValueChange={(value) => setParam("status", value)}
       >
-        <SelectTrigger className="w-36">
+        <SelectTrigger className="w-full sm:w-36">
           <SelectValue placeholder="Statut" />
         </SelectTrigger>
         <SelectContent>
@@ -62,7 +62,7 @@ export function TaskFilters({ projects }: { projects: Project[] }) {
         value={searchParams.get("priority") ?? "all"}
         onValueChange={(value) => setParam("priority", value)}
       >
-        <SelectTrigger className="w-36">
+        <SelectTrigger className="w-full sm:w-36">
           <SelectValue placeholder="Priorité" />
         </SelectTrigger>
         <SelectContent>
@@ -80,7 +80,7 @@ export function TaskFilters({ projects }: { projects: Project[] }) {
           value={searchParams.get("projectId") ?? "all"}
           onValueChange={(value) => setParam("projectId", value)}
         >
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="col-span-2 w-full sm:col-span-1 sm:w-40">
             <SelectValue placeholder="Projet" />
           </SelectTrigger>
           <SelectContent>
