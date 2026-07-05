@@ -1,8 +1,11 @@
 import { redirect } from "next/navigation"
 
 import { HabitsWidget } from "@/components/dashboard/habits-widget"
+import { OverviewCard } from "@/components/dashboard/overview-card"
 import { PriorityWidget } from "@/components/dashboard/priority-widget"
+import { TaskStatusBar } from "@/components/dashboard/task-status-bar"
 import { auth } from "@/lib/auth"
+import { getTaskOverviewStats, getTaskStatusBreakdown } from "@/services/stats.service"
 
 export default async function DashboardPage() {
   const session = await auth()
@@ -10,6 +13,11 @@ export default async function DashboardPage() {
   if (!session?.user?.id) {
     redirect("/login")
   }
+
+  const [overviewStats, statusBreakdown] = await Promise.all([
+    getTaskOverviewStats(session.user.id),
+    getTaskStatusBreakdown(session.user.id),
+  ])
 
   return (
     <div className="flex flex-col gap-4">
@@ -22,10 +30,17 @@ export default async function DashboardPage() {
         </p>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <PriorityWidget userId={session.user.id} />
+      <div className="grid gap-4 lg:grid-cols-3">
+        <OverviewCard
+          pendingCount={overviewStats.pendingCount}
+          overdueCount={overviewStats.overdueCount}
+          doneTodayCount={overviewStats.doneTodayCount}
+        />
+        <TaskStatusBar breakdown={statusBreakdown} />
         <HabitsWidget userId={session.user.id} />
       </div>
+
+      <PriorityWidget userId={session.user.id} />
     </div>
   )
 }

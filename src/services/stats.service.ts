@@ -1,7 +1,7 @@
 import "server-only"
 
 import { prisma } from "@/lib/prisma"
-import type { HabitDayStatus, HabitWeekSummary } from "@/types"
+import type { HabitDayStatus, HabitWeekSummary, TaskOverviewStats, TaskStatusBreakdown } from "@/types"
 
 function startOfWeek(date: Date): Date {
   const result = new Date(date)
@@ -58,4 +58,48 @@ export async function getWeeklyHabitSummary(userId: string): Promise<HabitWeekSu
       completedCount: days.filter((day) => day.done).length,
     }
   })
+}
+
+export async function getTaskOverviewStats(userId: string): Promise<TaskOverviewStats> {
+  const now = new Date()
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  const todayEnd = new Date(todayStart)
+  todayEnd.setDate(todayEnd.getDate() + 1)
+
+  const [pendingCount, overdueCount, doneTodayCount] = await Promise.all([
+    prisma.task.count({
+      where: { userId, status: { in: ["TODO", "IN_PROGRESS"] } },
+    }),
+    prisma.task.count({
+      where: {
+        userId,
+        status: { in: ["TODO", "IN_PROGRESS"] },
+        dueDate: { lt: todayStart },
+      },
+    }),
+    prisma.task.count({
+      where: {
+        userId,
+        status: "DONE",
+        updatedAt: { gte: todayStart, lt: todayEnd },
+      },
+    }),
+  ])
+
+  return { pendingCount, overdueCount, doneTodayCount }
+}
+
+export async function getTaskStatusBreakdown(userId: string): Promise<TaskStatusBreakdown[]> {
+  const counts = await prisma.task.groupBy({
+    by: ["status"],
+    where: { userId },
+    _count: true,
+  })
+
+  const countByStatus = new Map(counts.map((row) => [row.status, row._count]))
+
+  return (["TODO", "IN_PROGRESS", "DONE", "CANCELLED"] as const).map((status) => ({
+    status,
+    count: countByStatus.get(status) ?? 0,
+  }))
 }

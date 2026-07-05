@@ -8,8 +8,8 @@ export const PROJECT_STATUS_LABELS: Record<Project["status"], string> = {
 }
 
 export const PROJECT_STATUS_CLASSES: Record<Project["status"], string> = {
-  ACTIVE: "bg-info/15 text-info",
-  ON_HOLD: "bg-warning/15 text-warning",
-  COMPLETED: "bg-success/15 text-success",
+  ACTIVE: "bg-info/20 text-info",
+  ON_HOLD: "bg-warning/25 text-warning",
+  COMPLETED: "bg-success/20 text-success",
   ARCHIVED: "bg-muted text-muted-foreground",
 }

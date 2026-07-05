@@ -1,13 +1,22 @@
 "use client"
 
 import { Plus } from "lucide-react"
-import { useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
 
 import { HabitFormDialog } from "@/components/habits/habit-form-dialog"
 import { Button } from "@/components/ui/button"
 
 export function CreateHabitButton() {
-  const [open, setOpen] = useState(false)
+  const searchParams = useSearchParams()
+  const [open, setOpen] = useState(() => searchParams.get("new") === "1")
+  const router = useRouter()
+
+  useEffect(() => {
+    if (searchParams.get("new") === "1") {
+      router.replace("/habits")
+    }
+  }, [searchParams, router])
 
   return (
     <>

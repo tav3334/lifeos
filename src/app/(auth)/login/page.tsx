@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { Lock, Mail } from "lucide-react"
 import { useActionState } from "react"
 
 import { loginUser, type LoginFormState } from "@/actions/auth.actions"
@@ -23,7 +24,7 @@ export default function LoginPage() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Connexion</CardTitle>
+        <CardTitle className="text-xl">Content de vous revoir</CardTitle>
         <CardDescription>
           Entrez vos identifiants pour accéder à votre espace.
         </CardDescription>
@@ -32,14 +33,19 @@ export default function LoginPage() {
         <form action={action} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="jean@example.com"
-              autoComplete="email"
-              required
-            />
+            <div className="relative">
+              <Mail className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="jean@example.com"
+                autoComplete="email"
+                aria-invalid={!!state.errors?.email}
+                className="pl-8"
+                required
+              />
+            </div>
             {state.errors?.email && (
               <p className="text-sm text-destructive">{state.errors.email[0]}</p>
             )}
@@ -47,13 +53,18 @@ export default function LoginPage() {
 
           <div className="flex flex-col gap-2">
             <Label htmlFor="password">Mot de passe</Label>
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-            />
+            <div className="relative">
+              <Lock className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                aria-invalid={!!state.errors?.password}
+                className="pl-8"
+                required
+              />
+            </div>
             {state.errors?.password && (
               <p className="text-sm text-destructive">{state.errors.password[0]}</p>
             )}
@@ -70,7 +81,7 @@ export default function LoginPage() {
 
         <p className="mt-4 text-center text-sm text-muted-foreground">
           Pas encore de compte ?{" "}
-          <Link href="/register" className="text-primary underline underline-offset-4">
+          <Link href="/register" className="font-medium text-primary underline underline-offset-4">
             S&apos;inscrire
           </Link>
         </p>

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { Lock, Mail, User } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useActionState, useEffect } from "react"
 
@@ -31,7 +32,7 @@ export default function RegisterPage() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Créer un compte</CardTitle>
+        <CardTitle className="text-xl">Créer un compte</CardTitle>
         <CardDescription>
           Renseignez vos informations pour rejoindre LifeOS.
         </CardDescription>
@@ -40,7 +41,18 @@ export default function RegisterPage() {
         <form action={action} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="name">Nom</Label>
-            <Input id="name" name="name" placeholder="Jean Dupont" autoComplete="name" required />
+            <div className="relative">
+              <User className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="name"
+                name="name"
+                placeholder="Jean Dupont"
+                autoComplete="name"
+                aria-invalid={!!state.errors?.name}
+                className="pl-8"
+                required
+              />
+            </div>
             {state.errors?.name && (
               <p className="text-sm text-destructive">{state.errors.name[0]}</p>
             )}
@@ -48,14 +60,19 @@ export default function RegisterPage() {
 
           <div className="flex flex-col gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="jean@example.com"
-              autoComplete="email"
-              required
-            />
+            <div className="relative">
+              <Mail className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="jean@example.com"
+                autoComplete="email"
+                aria-invalid={!!state.errors?.email}
+                className="pl-8"
+                required
+              />
+            </div>
             {state.errors?.email && (
               <p className="text-sm text-destructive">{state.errors.email[0]}</p>
             )}
@@ -63,13 +80,18 @@ export default function RegisterPage() {
 
           <div className="flex flex-col gap-2">
             <Label htmlFor="password">Mot de passe</Label>
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              required
-            />
+            <div className="relative">
+              <Lock className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                aria-invalid={!!state.errors?.password}
+                className="pl-8"
+                required
+              />
+            </div>
             {state.errors?.password && (
               <ul className="text-sm text-destructive">
                 {state.errors.password.map((error) => (
@@ -90,7 +112,7 @@ export default function RegisterPage() {
 
         <p className="mt-4 text-center text-sm text-muted-foreground">
           Déjà un compte ?{" "}
-          <Link href="/login" className="text-primary underline underline-offset-4">
+          <Link href="/login" className="font-medium text-primary underline underline-offset-4">
             Se connecter
           </Link>
         </p>

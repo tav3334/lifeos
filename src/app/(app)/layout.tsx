@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 
 import { auth } from "@/lib/auth"
+import { CommandMenu } from "@/components/layout/command-menu"
 import { Header } from "@/components/layout/header"
 import { MobileNav } from "@/components/layout/mobile-nav"
 import { Sidebar } from "@/components/layout/sidebar"
@@ -27,6 +28,8 @@ export default async function AppLayout({
         </main>
         <MobileNav />
       </div>
+
+      <CommandMenu />
     </div>
   )
 }

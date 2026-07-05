@@ -1,7 +1,8 @@
 "use client"
 
 import { Plus } from "lucide-react"
-import { useState } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
 
 import { TaskFormDialog } from "@/components/tasks/task-form-dialog"
 import { Button } from "@/components/ui/button"
@@ -16,7 +17,18 @@ export function CreateTaskButton({
   defaultProjectId?: string
   size?: "default" | "sm"
 }) {
-  const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const [open, setOpen] = useState(
+    () => pathname === "/tasks" && searchParams.get("new") === "1"
+  )
+  const router = useRouter()
+
+  useEffect(() => {
+    if (pathname === "/tasks" && searchParams.get("new") === "1") {
+      router.replace("/tasks")
+    }
+  }, [pathname, searchParams, router])
 
   return (
     <>

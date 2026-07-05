@@ -39,3 +39,14 @@ export type HabitWeekSummary = {
   days: HabitDayStatus[]
   completedCount: number
 }
+
+export type TaskOverviewStats = {
+  pendingCount: number
+  overdueCount: number
+  doneTodayCount: number
+}
+
+export type TaskStatusBreakdown = {
+  status: Task["status"]
+  count: number
+}

@@ -32,10 +32,10 @@ const PRIORITY_LABELS: Record<Task["priority"], string> = {
 }
 
 const PRIORITY_CLASSES: Record<Task["priority"], string> = {
-  LOW: "bg-info/15 text-info",
-  MEDIUM: "bg-warning/15 text-warning",
-  HIGH: "bg-chart-4/20 text-chart-4",
-  URGENT: "bg-destructive/15 text-destructive",
+  LOW: "bg-info/20 text-info",
+  MEDIUM: "bg-warning/25 text-warning",
+  HIGH: "bg-chart-4/25 text-chart-4",
+  URGENT: "bg-destructive text-primary-foreground",
 }
 
 type TaskWithProject = Task & { project: Project | null }

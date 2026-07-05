@@ -33,13 +33,13 @@ export function Sidebar() {
               href={item.href}
               aria-current={isActive ? "page" : undefined}
               className={cn(
-                "flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                "flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all",
                 isActive
-                  ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                  : "text-sidebar-foreground/70 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
               )}
             >
-              <Icon className={cn("size-4", isActive && "text-primary")} />
+              <Icon className="size-4" />
               {item.label}
             </Link>
           )

@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -42,12 +43,14 @@ export function UserMenu({ name, email, image }: UserMenuProps) {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuLabel>
-          <div className="flex flex-col">
-            <span className="truncate text-sm font-medium">{name ?? "Utilisateur"}</span>
-            <span className="truncate text-xs font-normal text-muted-foreground">{email}</span>
-          </div>
-        </DropdownMenuLabel>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>
+            <div className="flex flex-col">
+              <span className="truncate text-sm font-medium">{name ?? "Utilisateur"}</span>
+              <span className="truncate text-xs font-normal text-muted-foreground">{email}</span>
+            </div>
+          </DropdownMenuLabel>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem render={<Link href="/profile" />}>
           <User />

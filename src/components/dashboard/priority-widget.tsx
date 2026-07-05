@@ -22,11 +22,11 @@ const REASON_LABELS: Record<PriorityReason, string> = {
 }
 
 const REASON_CLASSES: Record<PriorityReason, string> = {
-  OVERDUE: "bg-destructive/15 text-destructive",
-  URGENT_PRIORITY: "bg-destructive/15 text-destructive",
-  DUE_TODAY: "bg-warning/15 text-warning",
-  DUE_SOON: "bg-info/15 text-info",
-  HIGH_PRIORITY: "bg-chart-4/20 text-chart-4",
+  OVERDUE: "bg-destructive text-primary-foreground",
+  URGENT_PRIORITY: "bg-destructive text-primary-foreground",
+  DUE_TODAY: "bg-warning/25 text-warning",
+  DUE_SOON: "bg-info/20 text-info",
+  HIGH_PRIORITY: "bg-chart-4/25 text-chart-4",
 }
 
 function ReasonBadge({ reason }: { reason: PriorityReason }) {

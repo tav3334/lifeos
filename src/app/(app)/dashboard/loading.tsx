@@ -34,10 +34,13 @@ export default function DashboardLoading() {
         <Skeleton className="h-4 w-48" />
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-3">
+        <Skeleton className="h-52 rounded-xl" />
         <WidgetSkeleton />
         <WidgetSkeleton />
       </div>
+
+      <WidgetSkeleton />
     </div>
   )
 }
